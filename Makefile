@@ -14,13 +14,13 @@ BUILD_OPTIONS = -ldflags "-X rprompter/config.GitCommit $(GIT_COMMIT)$(GIT_STATU
 run: | install
 	bin/rprompter
 
-install: | submodules
+install:
 	GOPATH=$(THIS_DIR) go install $(BUILD_OPTIONS) rprompter
 
 # Yes, I typo this often
 isntall: | install
 
-test: | submodules
+test:
 	GOPATH=$(THIS_DIR) go test -i $(COMPONENTS)
 	GOPATH=$(THIS_DIR) go test -v $(COMPONENTS) #| script/colorise_gotest_output.pl
 
@@ -41,8 +41,8 @@ doc:
 #
 # Downloads and prepares submodules
 #
-submodules:
-	git submodule update --init --recursive
+# submodules:
+	# git submodule update --init --recursive
 
 #
 # Cleans out build products
@@ -50,4 +50,4 @@ submodules:
 clean:
 	find {bin,pkg} -mindepth 1 -not -name '.gitkeep' -delete
 
-.PHONY: clean submodules fmt run install test
+.PHONY: clean fmt run install test
